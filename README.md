@@ -1,88 +1,88 @@
-# Упражнения на алгоритмы: Бинарный поиск
+# Algorithm exercises: Binary search
 
-## Введение
+## Introduction
 
-В предыдущей задаче ты написал(а) алгоритм линейного поиска для того, чтобы осуществить работу поиска, который имитирует поведение метода `indexOf()`. В этой задаче ты реализуешь тот же процесс, только используя другой алгоритм: бинарный поиск.
+In the previous task, you wrote a linear search algorithm that mimics the behavior of the `indexOf()` method. In this task, you will do the same thing, only by using a different algorithm: binary search.
 
-## Линейный поиск
+## Linear search
 
-В линейном поиске ты просматриваешь по одному элементу за раз. Чем больше массив, тем больше сравнений твоей программе нужно было сделать во время поиска необходимого ей объекта. Другими словами, связь между размером массива и количеством операций, которые должна выполнить программа, является линейной, поскольку они увеличиваются на этапе блокировки.
+In a linear search, you go through one item at a time. The larger the array, the more comparisons your program needs to make when looking for the element it needs. In other words, the relationship between the size of the array and the number of operations that the program must perform is linear, since they increase during the blocking phase.
 
-Линейный поиск очень полезен и очень прост, но представь себе массив с миллионом элементов. В худшем случае ты можешь искать элемент в конце этого длинного массива. Линейный поиск должен будет сделать 999,999 проверок, прежде чем он наконец доберется до этого последнего элемента!
+Linear search is very useful and very simple, but imagine an array with a million items. In the worst case, you can search for an element at the end of this long array. Linear search will have to do 999,999 checks before it finally gets to that last element!
 
-Существует ли более эффективный способ?
+Is there a more efficient way?
 
-## Более эффективный поиск
+## More efficient search
 
-Давай рассмотрим поиск по большому списку элементов, которые уже отсортированы. Словари - отличный пример сортированного набора данных. Мы имеем тысячи слов в одном словаре, отсортированном по алфавиту. Если бы тебе пришлось искать слово в словаре, как бы ты это сделал(а)?
+Let's look at searching through a large list of items that are already sorted. Dictionaries are a great example of a sorted dataset. We have thousands of words in one dictionary, sorted alphabetically. If you had to look up a word in a dictionary, how would you do it?
 
-Если бы ты искал(а) слово линейным поиском, ты начал(а) бы на странице 1 в «А» и прокладывал(а) бы себе путь до тех пор, пока не найдешь свой результат. На практике, однако, мы этого никогда не делаем.
+If you searched for a word using linear search, you would start on page 1 at “A” and work your way up until you find your result. In practice, however, we never do this.
 
-Более общий подход заключается в том, чтобы открыть словарь где-то посередине и выяснить, нужно ли продолжить поиск влево или вправо. Если мы ищем слово «Золотой», а страница, которую мы открываем, имеет слово «Салат», мы знаем, что нам нужно идти влево, потому что «З» идёт раньше чем «С».
+A more general approach is to open the dictionary somewhere in the middle and figure out whether to continue searching left or right. If we are looking for the word "Golden", and the page we open has the word "Salad", we know that we need to go to the left, because "G" comes before "S".
 
-Если мы ищем влево, мы будем игнорировать правую половину словаря и разделять левую половину где-то посередине. На этот раз мы можем приземлиться в «Д», что означает, что нам на этот раз нужно искать в правой части. Если мы продолжим, мы, в конце концов, найдем наше слово или обнаружим, что оно вообще отсутствует в словаре.
+If we search to the left, we will ignore the right half of the dictionary and split the left half somewhere in the middle. This time we can land at "D", which means we need to look at the right side this time. If we continue, we will eventually find our word or find that it is not in the dictionary at all.
 
-Подумай, что здесь происходит. Как этот подход сопоставим с линейным поиском? Что будет быстрее? Если отношение линейного поиска к размеру массива является линейным, то верно ли то же самое и для нашего нового подхода?
-
-
-## Бинарный поиск
-
-Стратегия поиска слова в словаре, о которой мы говорили выше, действительно представляет собой бинарный поиск. Он называется «бинарным», потому что каждый раз, когда ты открываешь словарь и решаешь идти влево или вправо, ты делаешь бинарный (двоичный) выбор. Этот двоичный выбор означает, что твое «пространство поиска» уменьшается с каждым шагом на половину. Это резко контрастирует с подходами «один на один», который предлагает нам линейный поиск.
-
-Если описать метод бинарного поиска в псевдокоде, это будет выглядеть так:
-
- 1. Выбери точку в середине.
- 2. Сравни то, что находится в середине, с тем, что необходимо найти.
- 3. Если ты нашел(ла) то, что искал(а) - поиск окончен!
- 4. Если ты не нашел(ла) то, что искал(а), выбери левую или правую половину, чтобы продолжить поиск.
- 5. Примени тот же процесс к выбранной половине.
-
-Вот анимация, которая делает это в списке отсортированных номеров:
-
-![анимация бинарного поиска](readme-assets/binary-search.gif)
-
-*Рисунок 1*. Поиск в упорядоченном наборе данных с использованием алгоритма бинарного поиска.
+Think about what's going on here. How does this approach compare to linear search? Which will be faster? If the ratio of linear search to array size is linear, then is it the same for our new approach?
 
 
-## Скрытая сложность
+## Binary search
 
-На первый взгляд, написание алгоритма бинарного поиска может показаться простым заданием, но очень часто в его алгоритме можно найти ошибки. В книге *Programming Pearls* Джон Бентли писал, что за два часа, 90% профессиональных программистов не смогли написать правильную реализацию бинарного поиска. Правда они писали на `C` и им нельзя было тестировать свой код. Дональд Кнут в книге *Искусство программирования* писал, что хотя первый бинарный поиск был опубликован в 1946 году, первый поиск без ошибок не был опубликован до 1962 года. Использование TDD подхода к разработке может помочь тебе избежать ошибок в твоем алгоритме.
-Когда ты выполняешь детально-ориентированную работу, крайне важно быть методичным и последовательным в своем подходе.
+The strategy for finding a word in the dictionary, which we talked about above, is really called a binary search. It is called "binary" because every time you open a dictionary and decide to go left or right, you are making a binary choice. This binary choice means that your "search space" is reduced by half with each step. This is a totally different approach from the one-by-one approach that linear search offers us.
 
-## Ограничения
+If you describe binary search method in pseudocode, it will look like this:
 
-Твое решение должно быть рекурсивным. Двоичный поиск является классическим рекурсивным алгоритмом и предлагает хорошую практику.
+ 1. Pick a point in the middle.
+ 2. Compare what is in the middle with what needs to be found.
+ 3. If you found what you were looking for - your search is over!
+ 4. If you did not find what you were looking for, select the left or right half to continue your search.
+ 5. Apply the same process to the selected half.
 
-Тебе также необходимо выполнить эту задачу, не полагаясь на встроенные в JS методы массива `map/reduce/flter`.
+Here's an animation that does this in a sorted list:
 
-### Релиз 0. Реализация двоичного поиска
+![binary search animation](readme-assets/binary-search.gif)
 
-Теперь давай реализуем наш метод бинарного поиска `binarySearch`. Этот метод должен искать элемент в массиве и возвращать его индекс или `-1`, если элемент не находится в массиве.
+*Figure 1*. Searching an ordered dataset using a binary search algorithm
 
-Например, если ты ищешь `G` в массиве `[A, B, C, D, E, F, G, H]`, твой метод должен возвращать 6. Если ты ищешь `X`, он должен возвращать `-1`. Твой метод может подразумевать, что любой полученный массив уже отсортирован.
 
-Однако не погружайся сразу в реализацию - сделай предварительное планирование и псевдокодирование. 
+## Hidden complexity
 
-Помни первоначальный план:
+At first glance, writing a binary search algorithm may seem like a simple task, but very often you can find errors in its algorithm. In his book Programming Pearls, John Bentley wrote that in two hours, 90% of professional programmers were unable to write a correct binary search implementation. True, they wrote in C and were not allowed to test their code. Donald Knuth wrote in The Art of Programming that although the first binary search was published in 1946, the first error-free search was not published until 1962. Using a TDD approach to development can help you avoid mistakes in your algorithm. When you do detail oriented work, it is imperative to be methodical and consistent in your approach.
 
- 1. Выбери точку в середине.
- 2. Сравни то, что находится в середине, с тем, что необходимо найти.
- 3. Если ты нашел(ла) то, что искал(а) - поиск окончен!
- 4. Если ты не нашел(ла) то, что искал(а), выбери левую или правую половину, чтобы продолжить поиск.
- 5. Примени тот же процесс к выбранной половине.
 
-Конечно, этого недостаточно, чтобы найти элемент, поскольку тебе нужно выяснить, как вернуть индекс этого элемента. Сделай это шаг за шагом.
+## Limitations
 
-#### Важное значение имеет тестирование
+Your solution must be recursive. Binary search is a classic recursive algorithm and offers good practice.
 
-Для этой задачи не было написано никаких тестов. Тебе нужно будет написать их самостоятельно для того, чтобы определить, работает ли твой метод должным образом. Ты можешь попытаться свести к минимуму вероятность введения ошибок в свой алгоритм бинарного поиска, используя подход, основанный на тестах. Можно начать с простого и постепенно усложнять. Работает ли твой метод, когда массив, который ты ищешь, пуст? Что делать, если в массиве один элемент, два элемента и т.д.? Существуют ли другие крайние случаи, которые тебе необходимо проверить?
+You also need to accomplish this task without relying on JS's built-in `map/reduce/flter` array methods.
 
-### Релиз 1. Рефакторинг
+### Release 0. Implementing Binary Search
 
-Прежде чем завершить эту задачу, еще раз перечитай свой код, чтобы узнать, можешь ли ты его как-нибудь улучшить. Следуешь ли ты "Руководству по стилю JavaScript" (например, интервалы и отступы)? Могут ли имена твоих переменных быть более осмысленными? Есть ли проблемы в коде, которые ты можешь устранить? Например, есть ли какие-либо иные функции, которые ты мог(ла) бы вынести из метода `binarySearch`?
+Now let's implement our binary search method `binarySearch`. This method should search for an element in the array and return its index or `-1` if the element is not found in the array.
 
-Наличие прочного набора тестов очень сильно поможет тебе в рефакторинге. Тебе необходимо проводить рефакторинг только тогда, когда твои тесты работают должным образом. Поскольку ты осуществляешь рефакторинг, то с тестами все должно быть в порядке. Также, благодаря тестам, ты сможешь узнать о том, когда твой рефакторинг нарушит действующий код.
+For example, if you are looking for G in the array [A, B, C, D, E, F, G, H], your method should return 6. If you are looking for X, it should return -1. Your method may assume that any given array is already sorted.
 
-## Выводы
+Don't dive right into the implementation though - do some pre-planning and pseudo-coding.
 
-Подобно линейному поиску, двоичный поиск - это еще один общий алгоритм поиска и тот, с которым мы должны быть знакомы. Предполагая, что мы ищем упорядоченный набор данных, бинарный поиск будет более эффективным, чем метод линейного поиска, особенно по мере увеличения размера набора данных.
+Remember the original plan:
+
+ 1. Pick a point in the middle.
+ 2. Compare what is in the middle with what needs to be found.
+ 3. If you found what you were looking for - your search is over!
+ 4. If you did not find what you were looking for, select the left or right half to continue your search.
+ 5. Apply the same process to the selected half.
+
+Of course, it is not enough to find an element, since you need to figure out how to return the index of that element. Take it step by step.
+
+#### Testing is important
+
+No tests have been written for this exercise. You will need to write them yourself in order to determine if your method works as expected. You can try to minimize the chances of introducing bugs in your binary search algorithm by using a test-driven approach. You can start simple and gradually increase the complexity. Does your method work when the array you are looking for is empty? What if the array has one element, two elements, etc.? Are there other edge cases that you need to check?
+
+### Release 1. Refactoring
+
+Before completing this task, re-read your code again to see if you can improve it in any way. Are you following the JavaScript Style Guide (eg spacing and indentation)? Could your variable names be more meaningful? Are there any problems in the code that you can fix? For example, are there any other functions that you could take out from the binarySearch `binarySearch` method? 
+
+Having a solid set of tests will go a long way in refactoring. You need to refactor only when your tests are working as expected. As long as you're refactoring, your tests should be fine. Also, thanks to tests, you can find out when your refactoring will break the valid code.
+
+## Conclusion
+
+Similar to linear search, binary search is another general search algorithm and one that we should be familiar with. Assuming we are looking for an ordered dataset, binary search will be more efficient than linear search, especially as the dataset grows in size.
